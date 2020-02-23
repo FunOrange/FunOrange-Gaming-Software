@@ -14,22 +14,31 @@ namespace FunOrange_Gaming_Software
     {
         public Form1()
         {
+            Console.WriteLine("Entered Form1 constructor");
             InitializeComponent();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            Console.WriteLine("Entered textBox1_TextChanged");
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            Console.WriteLine("Entered label1_Click");
         }
 
         private void label10_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Entered label10_Click");
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Entered button1_Click");
+            Console.WriteLine("Sender: " + sender);
+            Console.WriteLine("EventArgs: " + e);
         }
     }
 }
