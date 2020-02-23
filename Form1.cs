@@ -36,9 +36,13 @@ namespace FunOrange_Gaming_Software
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("");
-            Console.WriteLine("Entered button1_Click");
-            Console.WriteLine("Sender: " + sender);
-            Console.WriteLine("EventArgs: " + e);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var m = (MouseEventArgs)e;
+            Console.WriteLine("rebind button 1 pressed");
+            Console.WriteLine("x: " + m.X + " y: " + m.Y);
         }
     }
 }

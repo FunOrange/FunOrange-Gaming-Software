@@ -16,11 +16,7 @@ namespace FunOrange_Gaming_Software
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            // github commit test
-            Console.WriteLine("just before Application.Run(new Form1())");
             Application.Run(new Form1());
-            Console.WriteLine("just after Application.Run(new Form1())");
         }
     }
 }
