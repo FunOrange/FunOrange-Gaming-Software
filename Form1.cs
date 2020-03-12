@@ -44,5 +44,10 @@ namespace FunOrange_Gaming_Software
             Console.WriteLine("rebind button 1 pressed");
             Console.WriteLine("x: " + m.X + " y: " + m.Y);
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("KeyCode: " + e.KeyCode);
+        }
     }
 }
