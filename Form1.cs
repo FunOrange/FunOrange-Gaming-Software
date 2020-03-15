@@ -117,5 +117,10 @@ namespace FunOrange_Gaming_Software
         {
 
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("KeyCode: " + e.KeyCode);
+        }
     }
 }
