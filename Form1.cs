@@ -1,4 +1,4 @@
-﻿#define KP
+﻿#undef KP
 using System;
 using System.Windows.Forms;
 
@@ -11,10 +11,10 @@ namespace FunOrange_Gaming_Software
         {
             Console.WriteLine("Entered Form1 constructor");
             keypadSerial = new KeypadSerial();
+            InitializeComponent();
 #if !KP
             keypadSerial.ConnectToKeypad(COMPortControl.Text);
 #endif
-            InitializeComponent();
         }
 
         private void button_connect_keypad_Click(object sender, EventArgs e)

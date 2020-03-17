@@ -1,4 +1,4 @@
-﻿#define KP // this means "I have a physical keypad to use this software with"
+﻿#undef KP // this means "I have a physical keypad to use this software with"
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
