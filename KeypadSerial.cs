@@ -1,4 +1,4 @@
-﻿#undef KP // this means "I have a physical keypad to use this software with"
+﻿#define KP // this means "I have a physical keypad to use this software with"
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -19,7 +19,7 @@ namespace FunOrange_Gaming_Software
         private bool connectionEstablished;
 
         // simulated eeprom
-#if KP == false
+#if !KP
         private byte[,] fakeEepromProfiles;
         private byte[] fakeEepromButtonMappings;
         private byte[] fakeEepromDebounceTimes;
@@ -30,23 +30,37 @@ namespace FunOrange_Gaming_Software
             if (Program.DEBUG) Console.WriteLine("Entered SerialInterface constructor");
         }
 
-        public void ConnectToKeypad()
+        public void ConnectToKeypad(string port)
         {
 #if KP
-            ShowPorts();
-            Console.WriteLine("Using COM4");
-            keypadPort = new SerialPort("COM4", 9600);
-            // Read signature to make sure we selected the keypad
-            keypadPort.WriteLine("fun");
-            if (keypadPort.ReadLine() == "orange")
+            Console.WriteLine("Trying " + port);
+            Regex comRegex = new Regex(@"COM\d+$");
+            if (comRegex.Matches(port).Count == 0)
             {
-                Console.WriteLine("Connection with keypad successfully established!");
-                connectionEstablished = true;
+                Console.WriteLine("Port is not in the form COM<num>. You entered: " + port);
+                return;
             }
-            else
+            try
             {
-                Console.WriteLine("Serial port did not respond with keypad signature");
-                connectionEstablished = false;
+                keypadPort = new SerialPort(port, 9600);
+                keypadPort.Open();
+                // Read signature to make sure we selected the keypad
+                //Console.WriteLine("writing \"fun\"");
+                keypadPort.WriteLine("fun");
+                //Console.WriteLine("waiting for \"oragne\"");
+                if (keypadPort.ReadLine() == "orange")
+                {
+                    Console.WriteLine("Connection with keypad successfully established!");
+                    connectionEstablished = true;
+                }
+                else
+                {
+                    Console.WriteLine("Serial port did not respond with keypad signature");
+                    connectionEstablished = false;
+                }
+            } catch (System.IO.IOException) {
+                Console.WriteLine("Connection with keypad successfully failed!");
+                Environment.Exit(-1);
             }
 #else
             Console.WriteLine("No keypad. Serial interface methods will return fake values, mimicking the response of a real keypad.");
@@ -67,30 +81,6 @@ namespace FunOrange_Gaming_Software
 
             connectionEstablished = true;
 #endif
-            /*Regex comRegex = new Regex(@"COM\d+$");
-            while (comRegex.Matches(response = Console.ReadLine()).Count == 0)
-            {
-                Console.WriteLine("Invalid Response. Try again.");
-            }
-            response = "COM4";
-            try
-            {
-                KeypadPort = new SerialPort(response, 9600);
-                // Read signature to make sure we selected the keypad
-                KeypadPort.WriteLine("fun");
-                if (KeypadPort.ReadLine() == "orange")
-                {
-                    Console.WriteLine("Connection with keypad successfully established!");
-                }
-                else
-                {
-                    Console.WriteLine("Serial port did not respond with keypad signature");
-                    Environment.Exit(-1);
-                }
-            } catch (System.IO.IOException) {
-                Console.WriteLine("Connection with keypad successfully failed!");
-                Environment.Exit(-1);
-            }*/
         }
 
         public void Disconnect()
@@ -196,11 +186,8 @@ namespace FunOrange_Gaming_Software
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method GetActiveProfile before connection is established");
-#if KP
-#else
             Console.WriteLine("todo");
             return 1;
-#endif
         }
         public void ReadProfile(int whichProfile)
         {

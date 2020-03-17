@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define KP
+using System;
 using System.Windows.Forms;
 
 namespace FunOrange_Gaming_Software
@@ -9,15 +10,17 @@ namespace FunOrange_Gaming_Software
         public Form1()
         {
             Console.WriteLine("Entered Form1 constructor");
-            keypadSerial = new KeypadSerial(); 
-            keypadSerial.ConnectToKeypad();
+            keypadSerial = new KeypadSerial();
+#if !KP
+            keypadSerial.ConnectToKeypad(COMPortControl.Text);
+#endif
             InitializeComponent();
         }
 
         private void button_connect_keypad_Click(object sender, EventArgs e)
         {
             Console.WriteLine("connect keypad");
-            keypadSerial.ConnectToKeypad();
+            keypadSerial.ConnectToKeypad(COMPortControl.Text);
         }
 
         private void button_disconnect_keypad_Click(object sender, EventArgs e)
@@ -108,19 +111,9 @@ namespace FunOrange_Gaming_Software
             Console.WriteLine();
         }
 
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            Console.WriteLine("KeyCode: " + e.KeyCode);
         }
     }
 }
