@@ -4,10 +4,10 @@ using System.Windows.Forms;
 
 namespace FunOrange_Gaming_Software
 {
-    public partial class Form1 : Form
+    public partial class DebugForm : Form
     {
         KeypadSerial keypadSerial;
-        public Form1()
+        public DebugForm()
         {
             Console.WriteLine("Entered Form1 constructor");
             keypadSerial = new KeypadSerial();

@@ -1,6 +1,6 @@
 ﻿namespace FunOrange_Gaming_Software
 {
-    partial class Form1
+    partial class DebugForm
     {
         /// <summary>
         /// Required designer variable.
@@ -376,19 +376,19 @@
             this.DebugPanel.Controls.Add(this.button9);
             this.DebugPanel.Controls.Add(this.button10);
             this.DebugPanel.Controls.Add(this.button4);
-            this.DebugPanel.Location = new System.Drawing.Point(565, 195);
+            this.DebugPanel.Location = new System.Drawing.Point(12, 12);
             this.DebugPanel.Name = "DebugPanel";
             this.DebugPanel.Size = new System.Drawing.Size(595, 327);
             this.DebugPanel.TabIndex = 21;
             // 
-            // Form1
+            // DebugForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1486, 787);
+            this.ClientSize = new System.Drawing.Size(623, 362);
             this.Controls.Add(this.DebugPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "DebugForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SetRisingDebounceControl)).EndInit();
