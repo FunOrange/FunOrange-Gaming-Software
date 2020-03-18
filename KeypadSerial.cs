@@ -112,7 +112,7 @@ namespace FunOrange_Gaming_Software
             }
             // keymap and debounce
             fakeEepromButtonMappings = new byte[] { 0xff, 0xff, 0xff };
-            fakeEepromDebounceTimes = new byte[] { 0xff 0xff, 0xff };
+            fakeEepromDebounceTimes = new byte[] { 0xff, 0xff, 0xff };
 #endif
         }
         public void SetDebounce(byte rising, byte falling, byte side)
