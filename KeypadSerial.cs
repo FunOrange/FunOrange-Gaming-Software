@@ -33,7 +33,6 @@ namespace FunOrange_Gaming_Software
         public void ConnectToKeypad(string port)
         {
 #if KP
-            Console.WriteLine("Trying " + port);
             Regex comRegex = new Regex(@"COM\d+$");
             if (comRegex.Matches(port).Count == 0)
             {
@@ -42,12 +41,13 @@ namespace FunOrange_Gaming_Software
             }
             try
             {
+                Disconnect();
                 keypadPort = new SerialPort(port, 9600);
                 keypadPort.Open();
                 // Read signature to make sure we selected the keypad
-                //Console.WriteLine("writing \"fun\"");
+                if (Program.DEBUG) Console.WriteLine("writing \"fun\"");
                 keypadPort.WriteLine("fun");
-                //Console.WriteLine("waiting for \"oragne\"");
+                if (Program.DEBUG) Console.WriteLine("waiting for \"orange\"");
                 if (keypadPort.ReadLine() == "orange")
                 {
                     Console.WriteLine("Connection with keypad successfully established!");
@@ -67,10 +67,10 @@ namespace FunOrange_Gaming_Software
 
             // simulate eeprom here; fill with factory default values
             // profiles
-            fakeEepromProfiles = new byte[5, 196];
+            fakeEepromProfiles = new byte[5, 192];
             for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < 196; j++)
+                for (int j = 0; j < 192; j++)
                 {
                     fakeEepromProfiles[i, j] = 0xff;
                 }
@@ -99,9 +99,20 @@ namespace FunOrange_Gaming_Software
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method EraseEEPROM before connection is established."); ;
 #if KP
-            Console.WriteLine("todo");
+            keypadPort.WriteLine("erase");
+            Ack();
 #else
-            Console.WriteLine("todo");
+            fakeEepromProfiles = new byte[5, 192];
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 192; j++)
+                {
+                    fakeEepromProfiles[i, j] = 0xff;
+                }
+            }
+            // keymap and debounce
+            fakeEepromButtonMappings = new byte[] { 0xff, 0xff, 0xff };
+            fakeEepromDebounceTimes = new byte[] { 0xff 0xff, 0xff };
 #endif
         }
         public void SetDebounce(byte rising, byte falling, byte side)
@@ -109,35 +120,42 @@ namespace FunOrange_Gaming_Software
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method SetDebounce before connection is established");
 #if KP
-            Console.WriteLine("todo");
+            keypadPort.WriteLine("set debounce");
+            Ack();
+            keypadPort.Write(new byte[] {rising, falling, side}, 0, 3);
+            Ack();
 #else
             fakeEepromDebounceTimes[0] = rising;
             fakeEepromDebounceTimes[1] = falling;
             fakeEepromDebounceTimes[2] = side;
 #endif
+            Console.WriteLine("Set Debounce Success");
         }
         public byte[] ReadDebounce()
         {
             if (!connectionEstablished)
-            {
-                
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method RemapLeftKey before connection is established");
-            }
-#if KP
-            Console.WriteLine("todo");
-            return new byte[0];
-#else
             var ret = new byte[3];
+#if KP
+            keypadPort.WriteLine("read debounce");
+            Ack();
+            keypadPort.Read(ret, 0, 3);
+#else
             Array.Copy(fakeEepromDebounceTimes, ret, 3);
-            return ret;
 #endif
+            return ret;
         }
         public void RemapLeftKey(byte keyCode)
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method RemapLeftKey before connection is established");
 #if KP
-            Console.WriteLine("todo");
+            // read, modify, write
+            byte[] old = ReadKeybinds();
+            keypadPort.WriteLine("remap keys");
+            Ack();
+            keypadPort.Write(new byte[] { keyCode, old[1], old[2] }, 0, 3);
+            Ack();
 #else
             fakeEepromButtonMappings[0] = keyCode;
 #endif
@@ -147,7 +165,12 @@ namespace FunOrange_Gaming_Software
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method RemapRightKey before connection is established");
 #if KP
-            Console.WriteLine("todo");
+            // read, modify, write
+            byte[] old = ReadKeybinds();
+            keypadPort.WriteLine("remap keys");
+            Ack();
+            keypadPort.Write(new byte[] { old[0], keyCode, old[2] }, 0, 3);
+            Ack();
 #else
             fakeEepromButtonMappings[1] = keyCode;
 #endif
@@ -157,7 +180,12 @@ namespace FunOrange_Gaming_Software
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method RemapSideButton before connection is established");
 #if KP
-            Console.WriteLine("todo");
+            // read, modify, write
+            byte[] old = ReadKeybinds();
+            keypadPort.WriteLine("remap keys");
+            Ack();
+            keypadPort.Write(new byte[] { old[0], old[1], keyCode }, 0, 3);
+            Ack();
 #else
             fakeEepromButtonMappings[2] = keyCode;
 #endif
@@ -166,42 +194,81 @@ namespace FunOrange_Gaming_Software
         {
             if (!connectionEstablished)
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method ReadKeybinds before connection is established");
-#if KP
-            Console.WriteLine("todo");
-            return new byte[] {5, 5, 40};
-#else
+
             var ret = new byte[3];
+#if KP
+            keypadPort.WriteLine("read keybinds");
+            Ack();
+            keypadPort.Read(ret, 0, 3);
+#else
             Array.Copy(fakeEepromButtonMappings, ret, 3);
-            return ret;
 #endif
+            return ret;
         }
         public void ActivateProfile()
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method ActivateProfile before connection is established");
-            Console.WriteLine("todo");
-            return;
+
+            throw new NotImplementedException();
         }
         public int GetActiveProfile()
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method GetActiveProfile before connection is established");
-            Console.WriteLine("todo");
-            return 1;
+
+#if KP
+            keypadPort.WriteLine("which active");
+            Ack();
+            string response = keypadPort.ReadLine();
+            return int.Parse(response);
+#else
+            throw new NotImplementedException();
+#endif
         }
         public void ReadProfile(int whichProfile)
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method ReadProfile before connection is established");
-            Console.WriteLine("todo");
-            return;
+            if ((whichProfile >= 1 && whichProfile <= 5) == false)
+            {
+                throw new ArgumentException("Profile must be in range [1,5]");
+            }
+#if KP
+            keypadPort.WriteLine("read profile");
+            Ack();
+            keypadPort.WriteLine(whichProfile.ToString());
+            Ack();
+            var profileBinary = new byte[192];
+            keypadPort.Read(profileBinary, 0, 192);
+            throw new NotImplementedException("Convert binary data to profile class object");
+#else
+            throw new NotImplementedException();
+#endif
         }
-        public void WriteProfile(int whichProfile)
+        public void WriteProfile(int whichProfile, LightingProfile profile)
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method WriteProfile before connection is established");
-            Console.WriteLine("todo");
+            if ((whichProfile >= 1 && whichProfile <= 5) == false)
+            {
+                throw new ArgumentException("Profile must be in range [1,5]");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentException("Cannot write a null profile.");
+            }
+#if KP
+            keypadPort.WriteLine("write profile");
+            Ack();
+            keypadPort.WriteLine(whichProfile.ToString());
+            Ack();
+            keypadPort.Write(profile.Serialize(), 0, 192);
+            Ack();
             return;
+#else
+            throw new NotImplementedException("Convert binary data to profile class object");
+#endif
         }
 
         public void ShowPorts()
@@ -217,6 +284,17 @@ namespace FunOrange_Gaming_Software
 
                 tList.ForEach(Console.WriteLine);
             }
+        }
+
+        private bool Ack()
+        {
+            if (!connectionEstablished) 
+                throw new NoKeypadConnectedException("Error: Trying to call serial interface method Ack() before connection is established");
+            // What do we do if timeout happens?
+            if (Program.DEBUG) Console.Write("Ack... ");
+            bool success = keypadPort.ReadLine() == "ack";
+            if (Program.DEBUG) Console.WriteLine(success);
+            return success;
         }
     }
 

@@ -55,7 +55,7 @@ namespace FunOrange_Gaming_Software
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Remap Right Key");
+            Console.WriteLine("Remap Left Key");
             keypadSerial.RemapLeftKey((byte) RemapLeftKeyControl.Value);
         }
 
@@ -86,7 +86,7 @@ namespace FunOrange_Gaming_Software
         private void button11_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Write Profile");
-            keypadSerial.WriteProfile(1);
+            keypadSerial.WriteProfile(1, null);
         }
 
         private void button5_Click(object sender, EventArgs e)

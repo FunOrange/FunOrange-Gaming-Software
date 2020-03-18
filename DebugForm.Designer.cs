@@ -221,6 +221,11 @@
             // SetFallingDebounceControl
             // 
             this.SetFallingDebounceControl.Location = new System.Drawing.Point(187, 195);
+            this.SetFallingDebounceControl.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.SetFallingDebounceControl.Name = "SetFallingDebounceControl";
             this.SetFallingDebounceControl.Size = new System.Drawing.Size(47, 20);
             this.SetFallingDebounceControl.TabIndex = 14;
@@ -228,6 +233,11 @@
             // SetSideButtonDebounceControl
             // 
             this.SetSideButtonDebounceControl.Location = new System.Drawing.Point(240, 194);
+            this.SetSideButtonDebounceControl.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.SetSideButtonDebounceControl.Name = "SetSideButtonDebounceControl";
             this.SetSideButtonDebounceControl.Size = new System.Drawing.Size(49, 20);
             this.SetSideButtonDebounceControl.TabIndex = 15;
@@ -261,7 +271,7 @@
             // 
             // RemapLeftKeyControl
             // 
-            this.RemapLeftKeyControl.Location = new System.Drawing.Point(458, 246);
+            this.RemapLeftKeyControl.Location = new System.Drawing.Point(458, 214);
             this.RemapLeftKeyControl.Maximum = new decimal(new int[] {
             255,
             0,
@@ -273,7 +283,7 @@
             // 
             // RemapRightKeyControl
             // 
-            this.RemapRightKeyControl.Location = new System.Drawing.Point(458, 272);
+            this.RemapRightKeyControl.Location = new System.Drawing.Point(458, 246);
             this.RemapRightKeyControl.Maximum = new decimal(new int[] {
             255,
             0,
@@ -285,7 +295,7 @@
             // 
             // RemapSideButtonControl
             // 
-            this.RemapSideButtonControl.Location = new System.Drawing.Point(458, 301);
+            this.RemapSideButtonControl.Location = new System.Drawing.Point(458, 275);
             this.RemapSideButtonControl.Maximum = new decimal(new int[] {
             255,
             0,
