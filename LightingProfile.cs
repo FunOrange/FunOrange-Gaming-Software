@@ -11,6 +11,29 @@ namespace FunOrange_Gaming_Software
         public string Name; // 32 byte C string
         public abstract byte[] Serialize();
 
+        // convert a block of raw bytes representing profile data and convert it to a profile object
+        public static LightingProfile Deserialize(byte[] data)
+        {
+            if (data.Length != 192)
+            {
+                throw new ArgumentException("Data must be a 192 byte block");
+            }
+            byte type = data[0];
+            // clear MSB (represents whether a profile is active)
+            type = (byte) (type & (0b01111111));
+            switch (type)
+            {
+                case 1:
+                    return new ReactiveProfile(data);
+                case 2:
+                    return new CycleProfile(data);
+                case 3:
+                    return new RainbowProfile(data);
+                default:
+                    throw new Exception("WTF IS THIS");
+            }
+        }
+
         // Convert user-given name to utf8 encoded bytes
         protected byte[] NameToUTF8()
         {

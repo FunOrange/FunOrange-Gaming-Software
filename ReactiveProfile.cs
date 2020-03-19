@@ -12,6 +12,49 @@ namespace FunOrange_Gaming_Software
         public int DecayDuration;
         public List<Color> colors;
 
+        public ReactiveProfile(byte[] data)
+        {
+            if (data.Length != 192)
+            {
+                throw new ArgumentException("data must be a 192 byte block");
+            }
+            if ((data[0] & (0b0111111)) != 1)
+            {
+                throw new ArgumentException("type identifier must be 1 for ReactiveProfile type");
+            }
+
+            int numColoursLeft = data[1];
+            int numColoursRight = data[2]; // ignore
+            DecayDuration = BitConverter.ToInt16(data, 3);
+            int ledMask = data[5]; // ignore
+
+            // read left colour array
+            int ptr = 6;
+            colors = new List<Color>();
+            for (int i = 0; i < numColoursLeft; i++)
+            {
+                byte r = data[ptr + 0];
+                byte g = data[ptr + 1];
+                byte b = data[ptr + 2];
+                colors.Add(Color.FromArgb(r, g, b));
+                ptr += 3;
+            }
+               
+            // ignore right colour array 
+            for (int i = 0; i < numColoursRight; i++)
+            {
+                //byte r = data[ptr + 0];
+                //byte g = data[ptr + 1];
+                //byte b = data[ptr + 2];
+                //colors.Add(Color.FromArgb(r, g, b));
+                ptr += 3;
+            }
+
+            // read name string
+            var nameUTF8 = new ArraySegment<byte>(data, ptr, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8.Array);
+        }
+
         public override byte[] Serialize()
         {
             byte[] ret = new byte[192];

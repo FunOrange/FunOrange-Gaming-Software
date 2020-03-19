@@ -11,6 +11,24 @@ namespace FunOrange_Gaming_Software
         public float Speed; // How fast to rotate around colour wheel
         public float Offset; // colour degree offset between adjacent LEDs
 
+        public RainbowProfile(byte[] data)
+        {
+            if (data.Length != 192)
+            {
+                throw new ArgumentException("data must be a 192 byte block");
+            }
+            if ((data[0] & (0b0111111)) != 3)
+            {
+                throw new ArgumentException("type identifier must be 3 for RainbowProfile type");
+            }
+
+            Speed = BitConverter.ToSingle(data, 1);
+            Offset = BitConverter.ToSingle(data, 5);
+            var nameUTF8 = new ArraySegment<byte>(data, 9, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8.Array);
+
+        }
+
         public override byte[] Serialize()
         {
             byte[] ret = new byte[192];

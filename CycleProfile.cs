@@ -12,6 +12,37 @@ namespace FunOrange_Gaming_Software
         public List<Color> Colors;
         public int ColorDuration;
         public bool Reverse;
+
+        public CycleProfile(byte[] data)
+        {
+            if (data.Length != 192)
+            {
+                throw new ArgumentException("data must be a 192 byte block");
+            }
+            if ((data[0] & (0b0111111)) != 2)
+            {
+                throw new ArgumentException("type identifier must be 2 for CycleProfile type");
+            }
+
+            int numColours = data[1];
+            ColorDuration = BitConverter.ToInt16(data, 2);
+            Reverse = (data[4] == 0) ? false : true;
+
+            int ptr = 5;
+            Colors = new List<Color>();
+            for (int i = 0; i < numColours; i++)
+            {
+                byte r = data[ptr + 0];
+                byte g = data[ptr + 1];
+                byte b = data[ptr + 2];
+                Colors.Add(Color.FromArgb(r, g, b));
+                ptr += 3;
+            }
+
+            var nameUTF8 = new ArraySegment<byte>(data, ptr, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8.Array);
+        }
+
         public override byte[] Serialize()
         {
             byte[] ret = new byte[192];
