@@ -67,7 +67,7 @@ namespace FunOrange_Gaming_Software
         private void button8_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Activate Profile");
-            keypadSerial.ActivateProfile();
+            keypadSerial.ActivateProfile((int) ActivateProfileControl.Value);
         }
 
         private void button9_Click(object sender, EventArgs e)

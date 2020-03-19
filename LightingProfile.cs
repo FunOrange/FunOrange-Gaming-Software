@@ -18,9 +18,8 @@ namespace FunOrange_Gaming_Software
             {
                 throw new ArgumentException("Data must be a 192 byte block");
             }
-            byte type = data[0];
             // clear MSB (represents whether a profile is active)
-            type = (byte) (type & (0b01111111));
+            int type = data[0] & 0b01111111;
             switch (type)
             {
                 case 1:

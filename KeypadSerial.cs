@@ -205,13 +205,30 @@ namespace FunOrange_Gaming_Software
 #endif
             return ret;
         }
-        public void ActivateProfile()
+        public void ActivateProfile(int whichProfile)
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method ActivateProfile before connection is established");
+            if ((whichProfile >= 1 && whichProfile <= 5) == false)
+            {
+                throw new ArgumentException("Profile must be in range [1,5]");
+            }
 
+#if KP
             throw new NotImplementedException();
+#else
+            // clear all active bits
+            for (int i = 0; i < 5; i++)
+            {
+                fakeEepromProfiles[i, 0] = (byte)(fakeEepromProfiles[i, 0] & 0b01111111);
+            }
+            // set active bit of whichProfile
+            int row = whichProfile - 1;
+            fakeEepromProfiles[row, 0] = (byte) (fakeEepromProfiles[row, 0] | 0b10000000);
+#endif
         }
+        // Returns the profile which is currently running on the keypad.
+        // Returns -1 if no profile is currently active
         public int GetActiveProfile()
         {
             if (!connectionEstablished) 
@@ -223,10 +240,17 @@ namespace FunOrange_Gaming_Software
             string response = keypadPort.ReadLine();
             return int.Parse(response);
 #else
-            throw new NotImplementedException();
+            for (int i = 0; i < 5; i++)
+            {
+                if ((fakeEepromProfiles[i,0] & 0b10000000) != 0)
+                {
+                    return i + 1;
+                }
+            }
+            return -1; // no active profile
 #endif
         }
-        public void ReadProfile(int whichProfile)
+        public LightingProfile ReadProfile(int whichProfile)
         {
             if (!connectionEstablished) 
                 throw new NoKeypadConnectedException("Error: Trying to call serial interface method ReadProfile before connection is established");
@@ -239,11 +263,14 @@ namespace FunOrange_Gaming_Software
             Ack();
             keypadPort.WriteLine(whichProfile.ToString());
             Ack();
-            var profileBinary = new byte[192];
-            keypadPort.Read(profileBinary, 0, 192);
-            throw new NotImplementedException("Convert binary data to profile class object");
+            var profileData = new byte[192];
+            keypadPort.Read(profileData, 0, 192);
+            return LightingProfile.Deserialize(profileData);
 #else
-            throw new NotImplementedException();
+            byte[] profileData = new byte[192];
+            int row = whichProfile - 1; // -1 because 0 indexed
+            Buffer.BlockCopy(fakeEepromProfiles, row * 192, profileData, 0, 192);
+            return LightingProfile.Deserialize(profileData); // -1 because 0 indexed
 #endif
         }
         public void WriteProfile(int whichProfile, LightingProfile profile)
@@ -265,9 +292,10 @@ namespace FunOrange_Gaming_Software
             Ack();
             keypadPort.Write(profile.Serialize(), 0, 192);
             Ack();
-            return;
 #else
-            throw new NotImplementedException("Convert binary data to profile class object");
+            var profileData = profile.Serialize();
+            int row = whichProfile - 1; // -1 because 0 indexed
+            Buffer.BlockCopy(profileData, 0, fakeEepromProfiles, row * 192, 192);
 #endif
         }
 
