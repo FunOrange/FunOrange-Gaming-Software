@@ -111,9 +111,9 @@ namespace FunOrange_Gaming_Software
             Console.WriteLine();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void DebugForm_KeyDown(object sender, KeyEventArgs e)
         {
-
+            Console.WriteLine($"Keycode is {e.KeyCode}. ScanCode is {KeyConverter.ToScanCode(e.KeyCode)}");
         }
     }
 }

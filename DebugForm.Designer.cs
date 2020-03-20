@@ -397,10 +397,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(623, 362);
             this.Controls.Add(this.DebugPanel);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DebugForm";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DebugForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.SetRisingDebounceControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SetFallingDebounceControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SetSideButtonDebounceControl)).EndInit();

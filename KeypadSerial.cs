@@ -15,7 +15,9 @@ namespace FunOrange_Gaming_Software
     {
 
         // state variables
+#if KP
         private SerialPort keypadPort;
+#endif
         private bool connectionEstablished;
 
         // simulated eeprom
@@ -314,6 +316,7 @@ namespace FunOrange_Gaming_Software
             }
         }
 
+#if KP
         private bool Ack()
         {
             if (!connectionEstablished) 
@@ -324,6 +327,7 @@ namespace FunOrange_Gaming_Software
             if (Program.DEBUG) Console.WriteLine(success);
             return success;
         }
+#endif
     }
 
 
