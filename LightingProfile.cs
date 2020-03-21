@@ -29,7 +29,8 @@ namespace FunOrange_Gaming_Software
                 case 3:
                     return new RainbowProfile(data);
                 default:
-                    throw new Exception("WTF IS THIS");
+                    Console.WriteLine("WARNING: Profile type could not be determined. Returning null profile.");
+                    return null;
             }
         }
 
@@ -42,7 +43,7 @@ namespace FunOrange_Gaming_Software
             {
                 ret[i] = 0x0;
             }
-            byte[] nameUTF8 = System.Text.Encoding.UTF8.GetBytes(Name);
+            byte[] nameUTF8 = Encoding.UTF8.GetBytes(Name);
             Buffer.BlockCopy(nameUTF8, 0, ret, 0, nameUTF8.Length);
 
             return ret;

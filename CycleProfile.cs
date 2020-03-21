@@ -39,8 +39,9 @@ namespace FunOrange_Gaming_Software
                 ptr += 3;
             }
 
-            var nameUTF8 = new ArraySegment<byte>(data, ptr, 32);
-            Name = Encoding.UTF8.GetString(nameUTF8.Array);
+            var nameUTF8 = new byte[32];
+            Buffer.BlockCopy(data, ptr, nameUTF8, 0, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8);
         }
 
         public override byte[] Serialize()
@@ -77,6 +78,20 @@ namespace FunOrange_Gaming_Software
             // Name [j : j+32] (32 byte utf8 string)
             Buffer.BlockCopy(NameToUTF8(), 0, ret, j, 32);
 
+            return ret;
+        }
+        public override string ToString()
+        {
+            string ret = "";
+            ret += $"Profile Type: Colour Cycle\n";
+            ret += $"Name: {Name}\n";
+            ret += $"ColorDuration: {ColorDuration}\n";
+            ret += $"Reverse: {Reverse}\n";
+            ret += $"Colors: {Colors.Count}\n";
+            foreach (var color in Colors)
+            {
+                ret += color.ToString() + "\n";
+            }
             return ret;
         }
     }

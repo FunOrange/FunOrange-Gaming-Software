@@ -31,7 +31,6 @@ namespace FunOrange_Gaming_Software
         {
             keyLookupTable = new List<KeyEntry>();
             // key entries are added here
-            // TODO: fill in KeyCodes (these can be found by ctrl-clicking into Keys type)
             keyLookupTable.Add(new KeyEntry("A", "HID_KEYBOARD_SC_A", 0x04, Keys.A));
             keyLookupTable.Add(new KeyEntry("B", "HID_KEYBOARD_SC_B", 0x05, Keys.B));
             keyLookupTable.Add(new KeyEntry("C", "HID_KEYBOARD_SC_C", 0x06, Keys.C));
@@ -113,7 +112,6 @@ namespace FunOrange_Gaming_Software
             keyLookupTable.Add(new KeyEntry("Num *", "HID_KEYBOARD_SC_KEYPAD_ASTERISK", 0x55, Keys.Multiply));
             keyLookupTable.Add(new KeyEntry("Num -", "HID_KEYBOARD_SC_KEYPAD_MINUS", 0x56, Keys.Subtract));
             keyLookupTable.Add(new KeyEntry("Num +", "HID_KEYBOARD_SC_KEYPAD_PLUS", 0x57, Keys.Add));
-
             keyLookupTable.Add(new KeyEntry("Num 1", "HID_KEYBOARD_SC_KEYPAD_1_AND_END", 0x59, Keys.NumPad1));
             keyLookupTable.Add(new KeyEntry("Num 2", "HID_KEYBOARD_SC_KEYPAD_2_AND_DOWN_ARROW", 0x5A, Keys.NumPad2));
             keyLookupTable.Add(new KeyEntry("Num 3", "HID_KEYBOARD_SC_KEYPAD_3_AND_PAGE_DOWN", 0x5B, Keys.NumPad3));

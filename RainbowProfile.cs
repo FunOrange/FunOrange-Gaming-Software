@@ -24,9 +24,10 @@ namespace FunOrange_Gaming_Software
 
             Speed = BitConverter.ToSingle(data, 1);
             Offset = BitConverter.ToSingle(data, 5);
-            var nameUTF8 = new ArraySegment<byte>(data, 9, 32);
-            Name = Encoding.UTF8.GetString(nameUTF8.Array);
 
+            var nameUTF8 = new byte[32];
+            Buffer.BlockCopy(data, 9, nameUTF8, 0, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8);
         }
 
         public override byte[] Serialize()
@@ -53,5 +54,15 @@ namespace FunOrange_Gaming_Software
 
             return ret;
         }
-}
+
+        public override string ToString()
+        {
+            string ret = "";
+            ret += $"Profile Type: Rainbow\n";
+            ret += $"Name: {Name}\n";
+            ret += $"Offset: {Offset}\n";
+            ret += $"Speed: {Speed}\n";
+            return ret;
+        }
+    }
 }

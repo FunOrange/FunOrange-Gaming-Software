@@ -10,7 +10,7 @@ namespace FunOrange_Gaming_Software
     class ReactiveProfile : LightingProfile
     {
         public int DecayDuration;
-        public List<Color> colors;
+        public List<Color> Colors;
 
         public ReactiveProfile(byte[] data)
         {
@@ -30,13 +30,13 @@ namespace FunOrange_Gaming_Software
 
             // read left colour array
             int ptr = 6;
-            colors = new List<Color>();
+            Colors = new List<Color>();
             for (int i = 0; i < numColoursLeft; i++)
             {
                 byte r = data[ptr + 0];
                 byte g = data[ptr + 1];
                 byte b = data[ptr + 2];
-                colors.Add(Color.FromArgb(r, g, b));
+                Colors.Add(Color.FromArgb(r, g, b));
                 ptr += 3;
             }
                
@@ -51,8 +51,9 @@ namespace FunOrange_Gaming_Software
             }
 
             // read name string
-            var nameUTF8 = new ArraySegment<byte>(data, ptr, 32);
-            Name = Encoding.UTF8.GetString(nameUTF8.Array);
+            var nameUTF8 = new byte[32];
+            Buffer.BlockCopy(data, ptr, nameUTF8, 0, 32);
+            Name = Encoding.UTF8.GetString(nameUTF8);
         }
 
         public override byte[] Serialize()
@@ -67,7 +68,7 @@ namespace FunOrange_Gaming_Software
             ret[0] = 1;
 
             // num_colours_l [1] (1 byte int)
-            ret[1] = (byte) colors.Count;
+            ret[1] = (byte) Colors.Count;
             // num_colours_r [2] (1 byte int)
             ret[2] = 0;
 
@@ -80,17 +81,30 @@ namespace FunOrange_Gaming_Software
 
             // color (3 bytes per color)
             int j = 6;
-            for (int x = 0; x < colors.Count; x++)
+            for (int x = 0; x < Colors.Count; x++)
             {
-                ret[j + 0] = colors[x].R;
-                ret[j + 1] = colors[x].G;
-                ret[j + 2] = colors[x].B;
+                ret[j + 0] = Colors[x].R;
+                ret[j + 1] = Colors[x].G;
+                ret[j + 2] = Colors[x].B;
                 j += 3;
             }
 
             // Name [j : j+32]
             Buffer.BlockCopy(NameToUTF8(), 0, ret, j, 32);
 
+            return ret;
+        }
+        public override string ToString()
+        {
+            string ret = "";
+            ret += $"Profile Type: Reactive\n";
+            ret += $"Name: {Name}\n";
+            ret += $"DecayDuration: {DecayDuration}\n";
+            ret += $"Colors: {Colors.Count}\n";
+            foreach (var color in Colors)
+            {
+                ret += color.ToString() + "\n";
+            }
             return ret;
         }
     }

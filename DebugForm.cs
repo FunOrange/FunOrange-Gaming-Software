@@ -80,7 +80,10 @@ namespace FunOrange_Gaming_Software
         private void button10_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Read Profile");
-            keypadSerial.ReadProfile((int) ReadProfileControl.Value);
+            var profile = keypadSerial.ReadProfile((int) ReadProfileControl.Value);
+            Console.WriteLine();
+            Console.WriteLine(profile);
+            Console.WriteLine();
         }
 
         private void button11_Click(object sender, EventArgs e)
