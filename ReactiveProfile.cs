@@ -11,6 +11,13 @@ namespace FunOrange_Gaming_Software
     {
         public int DecayDuration;
         public List<Color> Colors;
+        
+        public ReactiveProfile(string name)
+        {
+            Name = name;
+            DecayDuration = 0;
+            Colors = new List<Color>();
+        }
 
         public ReactiveProfile(byte[] data)
         {

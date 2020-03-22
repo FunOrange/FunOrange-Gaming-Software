@@ -55,6 +55,8 @@
             this.ReadProfileControl = new System.Windows.Forms.NumericUpDown();
             this.COMPortControl = new System.Windows.Forms.TextBox();
             this.DebugPanel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.UserColorDisplay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SetRisingDebounceControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SetFallingDebounceControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SetSideButtonDebounceControl)).BeginInit();
@@ -98,7 +100,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 195);
+            this.button2.Location = new System.Drawing.Point(3, 214);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 23);
             this.button2.TabIndex = 2;
@@ -108,7 +110,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 224);
+            this.button3.Location = new System.Drawing.Point(3, 243);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(121, 23);
             this.button3.TabIndex = 3;
@@ -118,7 +120,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(331, 214);
+            this.button4.Location = new System.Drawing.Point(213, 171);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(121, 23);
             this.button4.TabIndex = 4;
@@ -128,7 +130,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(331, 243);
+            this.button5.Location = new System.Drawing.Point(213, 200);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 23);
             this.button5.TabIndex = 5;
@@ -138,7 +140,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(331, 272);
+            this.button6.Location = new System.Drawing.Point(213, 229);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(121, 23);
             this.button6.TabIndex = 6;
@@ -148,7 +150,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(331, 301);
+            this.button7.Location = new System.Drawing.Point(213, 258);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(121, 23);
             this.button7.TabIndex = 7;
@@ -158,7 +160,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(253, 6);
+            this.button8.Location = new System.Drawing.Point(213, 6);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(121, 23);
             this.button8.TabIndex = 8;
@@ -168,7 +170,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(253, 35);
+            this.button9.Location = new System.Drawing.Point(213, 35);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(121, 23);
             this.button9.TabIndex = 9;
@@ -178,7 +180,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(253, 64);
+            this.button10.Location = new System.Drawing.Point(213, 64);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(121, 23);
             this.button10.TabIndex = 10;
@@ -188,7 +190,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(253, 93);
+            this.button11.Location = new System.Drawing.Point(213, 93);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(121, 23);
             this.button11.TabIndex = 11;
@@ -208,7 +210,7 @@
             // 
             // SetRisingDebounceControl
             // 
-            this.SetRisingDebounceControl.Location = new System.Drawing.Point(130, 195);
+            this.SetRisingDebounceControl.Location = new System.Drawing.Point(3, 188);
             this.SetRisingDebounceControl.Maximum = new decimal(new int[] {
             255,
             0,
@@ -220,7 +222,7 @@
             // 
             // SetFallingDebounceControl
             // 
-            this.SetFallingDebounceControl.Location = new System.Drawing.Point(187, 195);
+            this.SetFallingDebounceControl.Location = new System.Drawing.Point(59, 188);
             this.SetFallingDebounceControl.Maximum = new decimal(new int[] {
             255,
             0,
@@ -232,7 +234,7 @@
             // 
             // SetSideButtonDebounceControl
             // 
-            this.SetSideButtonDebounceControl.Location = new System.Drawing.Point(240, 194);
+            this.SetSideButtonDebounceControl.Location = new System.Drawing.Point(112, 188);
             this.SetSideButtonDebounceControl.Maximum = new decimal(new int[] {
             255,
             0,
@@ -245,7 +247,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(127, 179);
+            this.label1.Location = new System.Drawing.Point(3, 172);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 13);
             this.label1.TabIndex = 16;
@@ -254,7 +256,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(184, 178);
+            this.label2.Location = new System.Drawing.Point(56, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
             this.label2.TabIndex = 17;
@@ -263,7 +265,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(237, 178);
+            this.label3.Location = new System.Drawing.Point(109, 172);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 17;
@@ -271,43 +273,43 @@
             // 
             // RemapLeftKeyControl
             // 
-            this.RemapLeftKeyControl.Location = new System.Drawing.Point(458, 214);
+            this.RemapLeftKeyControl.Location = new System.Drawing.Point(340, 171);
             this.RemapLeftKeyControl.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.RemapLeftKeyControl.Name = "RemapLeftKeyControl";
-            this.RemapLeftKeyControl.Size = new System.Drawing.Size(120, 20);
+            this.RemapLeftKeyControl.Size = new System.Drawing.Size(42, 20);
             this.RemapLeftKeyControl.TabIndex = 18;
             // 
             // RemapRightKeyControl
             // 
-            this.RemapRightKeyControl.Location = new System.Drawing.Point(458, 246);
+            this.RemapRightKeyControl.Location = new System.Drawing.Point(340, 203);
             this.RemapRightKeyControl.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.RemapRightKeyControl.Name = "RemapRightKeyControl";
-            this.RemapRightKeyControl.Size = new System.Drawing.Size(120, 20);
+            this.RemapRightKeyControl.Size = new System.Drawing.Size(42, 20);
             this.RemapRightKeyControl.TabIndex = 18;
             // 
             // RemapSideButtonControl
             // 
-            this.RemapSideButtonControl.Location = new System.Drawing.Point(458, 275);
+            this.RemapSideButtonControl.Location = new System.Drawing.Point(340, 232);
             this.RemapSideButtonControl.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.RemapSideButtonControl.Name = "RemapSideButtonControl";
-            this.RemapSideButtonControl.Size = new System.Drawing.Size(120, 20);
+            this.RemapSideButtonControl.Size = new System.Drawing.Size(42, 20);
             this.RemapSideButtonControl.TabIndex = 18;
             // 
             // ActivateProfileControl
             // 
-            this.ActivateProfileControl.Location = new System.Drawing.Point(380, 9);
+            this.ActivateProfileControl.Location = new System.Drawing.Point(340, 9);
             this.ActivateProfileControl.Maximum = new decimal(new int[] {
             5,
             0,
@@ -319,7 +321,7 @@
             0,
             0});
             this.ActivateProfileControl.Name = "ActivateProfileControl";
-            this.ActivateProfileControl.Size = new System.Drawing.Size(120, 20);
+            this.ActivateProfileControl.Size = new System.Drawing.Size(42, 20);
             this.ActivateProfileControl.TabIndex = 19;
             this.ActivateProfileControl.Value = new decimal(new int[] {
             1,
@@ -329,7 +331,7 @@
             // 
             // ReadProfileControl
             // 
-            this.ReadProfileControl.Location = new System.Drawing.Point(380, 67);
+            this.ReadProfileControl.Location = new System.Drawing.Point(340, 67);
             this.ReadProfileControl.Maximum = new decimal(new int[] {
             5,
             0,
@@ -341,7 +343,7 @@
             0,
             0});
             this.ReadProfileControl.Name = "ReadProfileControl";
-            this.ReadProfileControl.Size = new System.Drawing.Size(120, 20);
+            this.ReadProfileControl.Size = new System.Drawing.Size(42, 20);
             this.ReadProfileControl.TabIndex = 19;
             this.ReadProfileControl.Value = new decimal(new int[] {
             1,
@@ -354,12 +356,14 @@
             this.COMPortControl.Location = new System.Drawing.Point(132, 6);
             this.COMPortControl.MaxLength = 6;
             this.COMPortControl.Name = "COMPortControl";
-            this.COMPortControl.Size = new System.Drawing.Size(100, 20);
+            this.COMPortControl.Size = new System.Drawing.Size(58, 20);
             this.COMPortControl.TabIndex = 20;
             this.COMPortControl.Text = "COM7";
             // 
             // DebugPanel
             // 
+            this.DebugPanel.Controls.Add(this.label4);
+            this.DebugPanel.Controls.Add(this.UserColorDisplay);
             this.DebugPanel.Controls.Add(this.label1);
             this.DebugPanel.Controls.Add(this.label2);
             this.DebugPanel.Controls.Add(this.label3);
@@ -386,16 +390,37 @@
             this.DebugPanel.Controls.Add(this.button9);
             this.DebugPanel.Controls.Add(this.button10);
             this.DebugPanel.Controls.Add(this.button4);
-            this.DebugPanel.Location = new System.Drawing.Point(12, 12);
+            this.DebugPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DebugPanel.Location = new System.Drawing.Point(0, 0);
             this.DebugPanel.Name = "DebugPanel";
-            this.DebugPanel.Size = new System.Drawing.Size(595, 327);
+            this.DebugPanel.Size = new System.Drawing.Size(408, 290);
             this.DebugPanel.TabIndex = 21;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(210, 129);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 13);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Set Custom Color:";
+            // 
+            // UserColorDisplay
+            // 
+            this.UserColorDisplay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.UserColorDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UserColorDisplay.Location = new System.Drawing.Point(307, 124);
+            this.UserColorDisplay.Name = "UserColorDisplay";
+            this.UserColorDisplay.Size = new System.Drawing.Size(27, 23);
+            this.UserColorDisplay.TabIndex = 22;
+            this.UserColorDisplay.UseVisualStyleBackColor = false;
+            this.UserColorDisplay.Click += new System.EventHandler(this.UserColorDisplay_Click);
             // 
             // DebugForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 362);
+            this.ClientSize = new System.Drawing.Size(408, 290);
             this.Controls.Add(this.DebugPanel);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -445,6 +470,8 @@
         private System.Windows.Forms.NumericUpDown ReadProfileControl;
         private System.Windows.Forms.TextBox COMPortControl;
         private System.Windows.Forms.Panel DebugPanel;
+        private System.Windows.Forms.Button UserColorDisplay;
+        private System.Windows.Forms.Label label4;
     }
 }
 

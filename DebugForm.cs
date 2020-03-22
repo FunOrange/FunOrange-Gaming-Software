@@ -1,5 +1,6 @@
-﻿#undef KP
+﻿#define KP
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FunOrange_Gaming_Software
@@ -7,11 +8,14 @@ namespace FunOrange_Gaming_Software
     public partial class DebugForm : Form
     {
         KeypadSerial keypadSerial;
+
+        private Color UserColor;
         public DebugForm()
         {
             Console.WriteLine("Entered Form1 constructor");
             keypadSerial = new KeypadSerial();
             InitializeComponent();
+            UserColor = Color.FromArgb(255, 128, 128);
 #if !KP
             keypadSerial.ConnectToKeypad(COMPortControl.Text);
 #endif
@@ -67,7 +71,7 @@ namespace FunOrange_Gaming_Software
         private void button8_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Activate Profile");
-            keypadSerial.ActivateProfile((int) ActivateProfileControl.Value);
+            keypadSerial.SetActiveProfile((int) ActivateProfileControl.Value);
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -88,8 +92,13 @@ namespace FunOrange_Gaming_Software
 
         private void button11_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Write Profile");
-            keypadSerial.WriteProfile(1, null);
+            Console.WriteLine("Writing a test profile to profile 1...");
+            var p = new ReactiveProfile("Jun's test profile");
+            p.DecayDuration = 10;
+            p.Colors.Add(Color.FromArgb(255, 255, 0));
+            p.Colors.Add(Color.FromArgb(0, 255, 255));
+            Console.WriteLine(p);
+            keypadSerial.WriteProfile(1, p);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -117,6 +126,24 @@ namespace FunOrange_Gaming_Software
         private void DebugForm_KeyDown(object sender, KeyEventArgs e)
         {
             Console.WriteLine($"Keycode is {e.KeyCode}. ScanCode is {KeyConverter.ToScanCode(e.KeyCode)}");
+        }
+
+        private void UserColorDisplay_Click(object sender, EventArgs e)
+        {
+            var colorPicker = new ColorDialog();
+            colorPicker.AllowFullOpen = true;
+            colorPicker.FullOpen = true;
+            colorPicker.Color = UserColor;
+            if (colorPicker.ShowDialog() == DialogResult.OK)
+            {
+                UserColor = colorPicker.Color;
+                UserColorDisplay.BackColor = UserColor;
+                var profile = new CycleProfile("Single User Colour");
+                profile.ColorDuration = 120;
+                profile.Colors.Add(UserColor);
+                keypadSerial.WriteProfile(5, profile);
+                keypadSerial.SetActiveProfile(5);
+            }
         }
     }
 }

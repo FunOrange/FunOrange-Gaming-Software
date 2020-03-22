@@ -13,6 +13,14 @@ namespace FunOrange_Gaming_Software
         public int ColorDuration;
         public bool Reverse;
 
+        public CycleProfile(string name)
+        {
+            Name = name;
+            Colors = new List<Color>();
+            ColorDuration = 0;
+            Reverse = false;
+        }
+
         public CycleProfile(byte[] data)
         {
             if (data.Length != 192)

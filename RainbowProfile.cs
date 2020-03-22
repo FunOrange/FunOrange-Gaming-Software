@@ -11,6 +11,12 @@ namespace FunOrange_Gaming_Software
         public float Speed; // How fast to rotate around colour wheel
         public float Offset; // colour degree offset between adjacent LEDs
 
+        public RainbowProfile(string name)
+        {
+            Name = name;
+            Speed = 0;
+            Offset = 0;
+        }
         public RainbowProfile(byte[] data)
         {
             if (data.Length != 192)
