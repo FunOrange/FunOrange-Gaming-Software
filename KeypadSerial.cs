@@ -306,19 +306,24 @@ namespace FunOrange_Gaming_Software
 #endif
         }
 
-        public void ShowPorts()
+        public async Task<string> GetPortInfo()
         {
+            string summary = "";
             using (var searcher = new ManagementObjectSearcher
                             ("SELECT * FROM WIN32_SerialPort"))
             {
                 string[] portnames = SerialPort.GetPortNames();
-                var ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
+                var ports = await Task.Run(() => searcher.Get().Cast<ManagementBaseObject>().ToList());
                 var tList = (from n in portnames
                              join p in ports on n equals p["DeviceID"].ToString()
                              select n + " - " + p["Caption"]).ToList();
 
-                tList.ForEach(Console.WriteLine);
+                foreach (var port in tList)
+                {
+                    summary += $"{port}{Environment.NewLine}";
+                }
             }
+            return summary;
         }
 
 #if KP

@@ -63,9 +63,14 @@ namespace FunOrange_Gaming_Software
             keypadSerial.RemapLeftKey((byte) RemapLeftKeyControl.Value);
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private async void button12_Click(object sender, EventArgs e)
         {
-            keypadSerial.ShowPorts();
+            PortTextBox.Text = "Searching...";
+            PortTextBox.Text = await keypadSerial.GetPortInfo();
+            if (PortTextBox.Text.Split('\n').Length >= 5)
+                PortTextBox.ScrollBars = ScrollBars.Both;
+            else
+                PortTextBox.ScrollBars = ScrollBars.Horizontal;
         }
 
         private void button8_Click(object sender, EventArgs e)
